@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Book Recommendation System</h1>
+
+        <form method="POST" action="/">
+            <input type="text" name="book" placeholder="Enter a book title..." autocomplete="off" />
+            <button type="submit">Recommend</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if matched_title %}
+            <p class="info">Showing results for: <strong>{{ matched_title }}</strong></p>
+        {% endif %}
+
+        {% if recs %}
+            <h2>Recommended Books</h2>
+            <ul class="book-list">
+                {% for book in recs %}
+                    <li>
+                        <strong>{{ book.title }}</strong> by {{ book.authors }} <br />
+                        ISBN: {{ book.isbn }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <hr />
+
+        <h2>Explore Top Books</h2>
+        <ul class="book-list">
+            {% for book in top_books %}
+                <li><strong>{{ book.title }}</strong> by {{ book.authors }}</li>
+            {% endfor %}
+        </ul>
+
+        <footer>
+            <p>Made with ❤️ by Satyam Kaushik</p>
+        </footer>
+    </div>
+</body>
+</html>
